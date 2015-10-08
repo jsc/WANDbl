@@ -39,6 +39,10 @@ cd ../external/indri-5.9
 make -j 5
 cd ../../src
 make
+cd ..
+cp src/mk_wand_idx bin/mk_wand_idx
+cp src/kstem_query bin/kstem_query
+cp build/wand_search bin/wand_search
 ```
 
 Binary Info
