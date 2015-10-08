@@ -15,11 +15,12 @@ This code is derived from the following papers:
    CPM, pages 207–218, 2015. https://github.com/simongog/surf
 
 Several people have contributed to this codebase over the years. They are:
-Matthias Petri
-Simon Gog
-Joel Mackenzie
-Yubin Kim
-Shane Culpepper
+
+- Matthias Petri
+- Simon Gog
+- Joel Mackenzie
+- Yubin Kim
+- Shane Culpepper
 
 Build Info
 =========
