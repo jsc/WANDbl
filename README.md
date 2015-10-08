@@ -58,5 +58,5 @@ directory.
 Note that the input queries must be Krovetz stemmed if the Indri index is
 built with Krovetz stemming. There is no stemmer built into the query 
 engine. You can use the kstem_query program to stem a text string. It
-is up to you to add the <query_number>; before the query. See the
+is up to you to add the query id and ; before the query. See the
 example query sets in ir-repo for an example.
