@@ -1,0 +1,11 @@
+<parameters>
+<memory>64G</memory>
+<storeDocs>true</storeDocs>
+<index>CW09B</index>
+<corpus>
+   <path>/research/remote/collections/TREC/ClueWeb09/disk1/ClueWeb09_English_1</path>
+   <class>warc</class>
+</corpus>
+<stemmer><name>krovetz</name></stemmer>
+</parameters>
+

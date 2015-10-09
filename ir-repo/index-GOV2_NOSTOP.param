@@ -1,0 +1,24 @@
+<parameters>
+<memory>64G</memory>
+<threads>1</threads>
+<index>GOV2_STOP</index>
+<storeDocs>true</storeDocs>
+<stemmer><name>krovetz</name></stemmer>
+<corpus>
+   <path>/research/remote/petabyte/users/TREC/gov2/gov2-corpus</path>
+   <class>trecweb</class>
+</corpus>
+<metadata>
+  <forward>docno</forward>
+  <backward>docno</backward>
+  <backward>url</backward>
+  <backward>title</backward>
+</metadata>
+<metadata><name>url</name></metadata>
+<field><name>title</name></field>
+<field><name>heading</name></field>
+<field><name>body</name></field>
+<field><name>inlink</name></field>
+<field><name>url</name></field>
+</parameters>
+
