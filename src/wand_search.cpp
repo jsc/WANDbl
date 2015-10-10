@@ -92,9 +92,6 @@ main (int argc,char* const argv[])
   /* parse command line */
   cmdargs_t args = parse_args(argc,argv);
 
-  /* parse repo */
-  auto cc = parse_collection(args.collection_dir);
-
   // read warm-up queries if specified
   std::vector<query_t> warm_queries;
 
