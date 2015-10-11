@@ -17,9 +17,12 @@ struct my_rank_bm25 {
   my_rank_bm25(){}
   my_rank_bm25& operator=(const my_rank_bm25&) = default;
 
-  my_rank_bm25(std::vector<uint64_t> doc_len, uint64_t terms) : my_rank_bm25(doc_len, terms, doc_len.size()) { }
+  my_rank_bm25(std::vector<uint64_t> doc_len, 
+          uint64_t terms) : my_rank_bm25(doc_len, terms, doc_len.size()) { }
 
-  my_rank_bm25(std::vector<uint64_t> doc_len, uint64_t terms, uint64_t numdocs) : num_docs(numdocs), avg_doc_len((double)terms/(double)numdocs) {
+  my_rank_bm25(std::vector<uint64_t> doc_len, 
+          uint64_t terms, uint64_t numdocs) : num_docs(numdocs), 
+          avg_doc_len((double)terms/(double)numdocs) {
     doc_lengths = std::move(doc_len); //Takes ownership of the vector!
 
     std::cerr<<"num_docs = "<<num_docs<<std::endl;
@@ -34,7 +37,8 @@ struct my_rank_bm25 {
   double calculate_docscore(const double f_qt,const double f_dt,
                             const double f_t, const double W_d,bool) const
   {
-    double w_qt = std::max(epsilon_score, log((num_docs - f_t + 0.5) / (f_t+0.5)) * f_qt);
+    double w_qt = std::max(epsilon_score, 
+                  log((num_docs - f_t + 0.5) / (f_t+0.5)) * f_qt);
     double K_d = k1*((1-b) + (b*(W_d/avg_doc_len)));
     double w_dt = ((k1+1)*f_dt) / (K_d + f_dt);
     return w_dt*w_qt;

@@ -16,14 +16,34 @@ git submodule update
 echo "Configure and build dependencies .."
 cd build
 $CMAKE ..
+if [ $? -ne 0 ];
+then
+  echo "ERROR: cmake failed!"
+  exit -1
+fi
 make -j 5
+if [ $? -ne 0 ];
+then
+  echo "ERROR: Make failed!"
+  exit -1
+fi
 echo "Configure and build Indri ..."
 cd ../external/indri-5.9
 ./configure
 make -j 5
+if [ $? -ne 0 ];
+then
+  echo "ERROR: Build Indri failed!"
+  exit -1
+fi
 echo "Compile the Indri extractor ..."
 cd ../../src
 make
+if [ $? -ne 0 ];
+then
+  echo "ERROR: Indri dependent build failed!"
+  exit -1
+fi
 cd ..
 cp src/mk_wand_idx bin/mk_wand_idx
 cp src/kstem_query bin/kstem_query
