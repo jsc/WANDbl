@@ -36,3 +36,5 @@ external/indri-5.9/runquery/IndriRunQuery
 external/indri-5.9/site-search/cgi/bin/lemur.cgi
 bin/mk_wand_idx
 bin/wand_search
+src/kstem_query
+src/mk_wand_idx
