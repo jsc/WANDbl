@@ -20,7 +20,7 @@ typedef struct cmdargs {
     std::string doclen_file;
     std::string global_file;
     std::string output_prefix;
-
+    bool ignore_low_impact_terms;
     bool is_exhaustive;
     uint64_t k;
 } cmdargs_t;
@@ -35,7 +35,9 @@ print_usage (char* program)
   fprintf(stdout,"  -q <query file>  : the queries to process.\n");
   fprintf(stdout,"  -k <top-k>  : the number of documents to be retrieved.\n");
   fprintf(stdout,"  -o <output> : prefix for output files.\n");
-  fprintf(stdout,"  -e   : turn on exhaustive processing, defaults to wand\n");
+  fprintf(stdout,"  -e   : turn on exhaustive processing, defaults to wand.\n");
+  fprintf(stdout,"  -i   : don't ignore terms where max impact < threshold,");
+  fprintf(stdout," default is to ignore.\n");
   exit(EXIT_FAILURE);
 };
 
@@ -47,8 +49,9 @@ parse_args(int argc,char* const argv[])
   args.collection_dir = "";
   args.output_prefix = "wand";
   args.is_exhaustive = false;
+  args.ignore_low_impact_terms = true;
   args.k = 10;
-  while ((op=getopt(argc,argv,"c:q:k:o:e")) != -1) {
+  while ((op=getopt(argc,argv,"c:q:k:o:ei")) != -1) {
     switch (op) {
       case 'c':
         args.collection_dir = optarg;
@@ -69,6 +72,9 @@ parse_args(int argc,char* const argv[])
         break;
       case 'e':
         args.is_exhaustive = true;
+        break;
+      case 'i':
+        args.ignore_low_impact_terms = false;
         break;
       case '?':
       default:
@@ -157,7 +163,8 @@ main (int argc,char* const argv[])
       // run the query
       auto qry_start = clock::now();
       auto results = index.search(qry_tokens,args.k, false, true, 
-                                  args.is_exhaustive);
+                                  args.is_exhaustive, 
+                                  args.ignore_low_impact_terms);
       auto qry_stop = clock::now();
 
       auto query_time = std::chrono::duration_cast<std::chrono::microseconds>(qry_stop-qry_start);
