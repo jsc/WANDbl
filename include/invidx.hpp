@@ -401,7 +401,7 @@ public:
 
   result search(const std::vector<query_token>& qry,size_t k,
                 bool ranked_and = false,bool profile = false, 
-                bool t_exhaustive = false) {
+                bool t_exhaustive = false, bool ignore_low_impact = true) {
 
     std::vector<plist_wrapper> pl_data(qry.size());
     std::vector<plist_wrapper*> postings_lists;
@@ -410,10 +410,23 @@ public:
       pl_data[j++] = plist_wrapper(m_postings_lists[qry_token.token_ids[0]], 
                      (double)m_F_t[qry_token.token_ids[0]],
                      (double)qry_token.f_qt);
-      if (pl_data[j-1].list_max_score > 0) {
+      //Remove lists that have an impact below the score threshold
+      if(ignore_low_impact){
+        if (pl_data[j-1].list_max_score > SCORE_THRESHOLD) {
+          postings_lists.emplace_back(&(pl_data[j-1]));
+        }
+      }
+      else{
         postings_lists.emplace_back(&(pl_data[j-1]));
       }
     }
+
+    // We can not ignore *all* of the low scoring terms, so we must use all.
+    if(postings_lists.size() == 0){
+      for(size_t i = 0; i < pl_data.size(); ++i)
+        postings_lists.emplace_back(&(pl_data[i]));
+    }
+
     if (t_exhaustive) {
       return process_exhaustive(postings_lists,k,ranked_and,profile);
     } else {

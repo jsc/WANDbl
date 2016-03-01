@@ -16,6 +16,10 @@
 const std::string DICT_FILENAME = "dict.txt";
 const std::string DOCNAMES_FILENAME = "doc_names.txt";
 
+// If the maximum possible score of a term is less than this theshold, the
+// term will not be used in the score computation
+const double SCORE_THRESHOLD = 0.01;
+
 // Knuth trick for comparing floating numbers
 // check if a and b are equal with respect to the defined tolerance epsilon
 inline bool float_equals( float a, float b) { 

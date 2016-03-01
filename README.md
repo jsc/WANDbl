@@ -64,3 +64,16 @@ built with Krovetz stemming. There is no stemmer built into the query
 engine. You can use the kstem_query program to stem a text string. It
 is up to you to add the query id and ; before the query. See the
 example query sets in ir-repo for an example.
+
+A note on flags
+===============
+**-e**: If set, a completely exhaustive search will be used rather than a 
+WAND traversal.
+
+**-i**: If set, all query terms for a given query will be used to evaluate
+each candidate document. The default (that is, the -i flag not set) is to
+ignore any postings lists where the maximum contribution of any
+entry in this list is less than some threshold *t*, defined in util.hpp.
+For example, given a query q = "the example", *t* = 0.01 and the maximum 
+contribution of the term "the" = 0.004, then the postings list for "the" will 
+never be utilised.
