@@ -49,7 +49,7 @@ Binary Info
 ======
 There are two important binaries.
 
-1. bin/mk_wand_index -c GOV2_STOP wand_out
+1. bin/mk_wand_idx GOV2_STOP wand_out
 This will convert the Indri Index in GOV2_STOP generated using the file
 ir-repo/index-GOV2_STOP.param. The WAND index will be in the wand_out
 directory.
