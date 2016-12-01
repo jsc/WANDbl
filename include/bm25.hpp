@@ -1,6 +1,12 @@
 #ifndef _BM25_H
 #define _BM25_H
 
+#include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <string>
+#include <vector>
+
 template<uint32_t t_k1=90,uint32_t t_b=40>
 struct my_rank_bm25 {
   static const double k1;
@@ -38,7 +44,7 @@ struct my_rank_bm25 {
                             const double f_t, const double W_d,bool) const
   {
     double w_qt = std::max(epsilon_score, 
-                  log((num_docs - f_t + 0.5) / (f_t+0.5)) * f_qt);
+                  std::log((num_docs - f_t + 0.5) / (f_t+0.5)) * f_qt);
     double K_d = k1*((1-b) + (b*(W_d/avg_doc_len)));
     double w_dt = ((k1+1)*f_dt) / (K_d + f_dt);
     return w_dt*w_qt;
